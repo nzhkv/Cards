@@ -10,7 +10,6 @@ class MyViewController : UIViewController {
         self.view = view
         
         createBeizer(on: view)
-        createBeizerTwo(on: view)
     }
     
     private func createBeizer(on view: UIView) {
@@ -19,20 +18,13 @@ class MyViewController : UIViewController {
         shapelayer.strokeColor = UIColor.gray.cgColor
         shapelayer.lineWidth = 5
         
-        shapelayer.fillColor = nil
+        shapelayer.fillColor = UIColor.green.cgColor
         
-        shapelayer.path = getPath().cgPath
-    }
-    
-    private func createBeizerTwo(on view: UIView) {
-        let shapelayer = CAShapeLayer()
-        view.layer.addSublayer(shapelayer)
-        shapelayer.strokeColor = UIColor.cyan.cgColor
-        shapelayer.lineWidth = 5
+//        shapelayer.path = getPath().cgPath
+//        shapelayer.path = getRect().cgPath
+//        shapelayer.path = getArc().cgPath
+        shapelayer.path = getShape().cgPath
         
-        shapelayer.fillColor = nil
-        
-        shapelayer.path = getRect().cgPath
     }
     
     private func getPath() -> UIBezierPath {
@@ -51,9 +43,47 @@ class MyViewController : UIViewController {
     
     private func getRect() -> UIBezierPath {
         let rect = CGRect(x: 10, y: 10, width: 200, height: 200)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 30)
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft, .bottomRight], cornerRadii: CGSize(width: 30, height: 0))
         return path
     }
+    
+    private func getArc() -> UIBezierPath {
+        let centerPoint = CGPoint(x: 200, y: 200)
+        let path = UIBezierPath(arcCenter: centerPoint,
+                                radius: 150,
+                                startAngle: .pi/5,
+                                endAngle: .pi,
+                                clockwise: true)
+        return path
+    }
+    
+    private func getShape() -> UIBezierPath {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 100, y: 100))
+        path.addArc(withCenter: CGPoint(x: 150, y: 100),
+                    radius: 50,
+                    startAngle: .pi,
+                    endAngle: 0,
+                    clockwise: true)
+        path.addLine(to: CGPoint(x: 220, y: 100))
+        path.addArc(withCenter: CGPoint(x: 220, y: 150),
+                    radius: 50,
+                    startAngle: .pi * 3/2,
+                    endAngle: .pi / 2,
+                    clockwise: true)
+        path.addLine(to: CGPoint(x: 200, y: 200))
+        path.addLine(to: CGPoint(x: 200, y: 260))
+        path.addLine(to: CGPoint(x: 100, y: 260))
+        path.addLine(to: CGPoint(x: 100, y: 200))
+        path.addLine(to: CGPoint(x: 80, y: 200))
+        path.addArc(withCenter: CGPoint(x: 80, y: 150),
+                    radius: 50,
+                    startAngle: .pi/2, endAngle: .pi*3/2,
+                    clockwise: true)
+        path.close()
+        return path
+    }
+    
 }
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = MyViewController()
