@@ -25,6 +25,7 @@
 		2ECB20DD2A6ACCFD00FFB6A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2ECB20DF2A6ACCFD00FFB6A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2ECB20E52A6ACDB300FFB6A6 /* ViewExperiments.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ViewExperiments.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2ECB20E62A6BDF5F00FFB6A6 /* BezierExperiments.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BezierExperiments.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +66,7 @@
 				2ECB20DC2A6ACCFD00FFB6A6 /* LaunchScreen.storyboard */,
 				2ECB20DF2A6ACCFD00FFB6A6 /* Info.plist */,
 				2ECB20E52A6ACDB300FFB6A6 /* ViewExperiments.playground */,
+				2ECB20E62A6BDF5F00FFB6A6 /* BezierExperiments.playground */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
