@@ -30,6 +30,11 @@ extension ShapeLayerProtocol {
     }
 }
 
+protocol FlippableView: UIView {
+    var isFlipped: Bool { get set }
+    var flipCompletionHandler: ((FlippableView) -> Void)? { get set }
+}
+
 class CircleShape: CAShapeLayer, ShapeLayerProtocol {
     required init(size: CGSize, fillColor: CGColor) {
         super.init()
@@ -155,6 +160,24 @@ class BackSideLine: CAShapeLayer, ShapeLayerProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
+    var isFlipped: Bool = false
+    var flipCompletionHandler: ((FlippableView) -> Void)?
+    var color: UIColor!
+    
+    init(frame: CGRect, color: UIColor) {
+        super.init(frame: frame)
+        self.color = color
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func flip() {}
+}
+
+
 
 
 
