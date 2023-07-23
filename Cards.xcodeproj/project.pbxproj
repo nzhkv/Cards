@@ -26,6 +26,7 @@
 		2ECB20DF2A6ACCFD00FFB6A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2ECB20E52A6ACDB300FFB6A6 /* ViewExperiments.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ViewExperiments.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2ECB20E62A6BDF5F00FFB6A6 /* BezierExperiments.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BezierExperiments.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2EE7A7462A6D22EB00F2106B /* ShapeLayer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ShapeLayer.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +68,7 @@
 				2ECB20DF2A6ACCFD00FFB6A6 /* Info.plist */,
 				2ECB20E52A6ACDB300FFB6A6 /* ViewExperiments.playground */,
 				2ECB20E62A6BDF5F00FFB6A6 /* BezierExperiments.playground */,
+				2EE7A7462A6D22EB00F2106B /* ShapeLayer.playground */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
