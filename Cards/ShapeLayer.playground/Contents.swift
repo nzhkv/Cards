@@ -13,7 +13,9 @@ class MyViewController : UIViewController {
 //        view.layer.addSublayer(SquareShape(size: CGSize(width: 200, height: 100), fillColor: UIColor.green.cgColor))
 //        view.layer.addSublayer(CrossShape(size: CGSize(width: 200, height: 150), fillColor: UIColor.cyan.cgColor))
 //        view.layer.addSublayer(BackSideCircle(size: CGSize(width: 200, height: 500), fillColor: UIColor.gray.cgColor))
-        view.layer.addSublayer(BackSideLine(size: CGSize(width: 200, height: 500), fillColor: UIColor.gray.cgColor))
+//        view.layer.addSublayer(BackSideLine(size: CGSize(width: 200, height: 500), fillColor: UIColor.gray.cgColor))
+        let firstCardView = CardView<CircleShape>(frame: CGRect(x: 0, y: 0, width: 120, height: 150), color: .red)
+        self.view.addSubview(firstCardView)
     }
 }
 // Present the view controller in the Live View window
@@ -112,14 +114,14 @@ class BackSideCircle: CAShapeLayer, ShapeLayerProtocol {
         
         let path = UIBezierPath()
         
-        for _ in 1...150 {
+        for _ in 1...30 {
             
             let randomX = Int.random(in: 0...Int(size.width))
             let randomY = Int.random(in: 0...Int(size.height))
             let center = CGPoint(x: randomX, y: randomY)
             
             path.move(to: center)
-            let radius = Int.random(in: 2...12)
+            let radius = Int.random(in: 2...10)
             path.addArc(withCenter: center,
                         radius: CGFloat(radius),
                         startAngle: 0, endAngle: .pi * 2,
@@ -163,7 +165,7 @@ class BackSideLine: CAShapeLayer, ShapeLayerProtocol {
 }
 
 class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
-    var isFlipped: Bool = false
+    var isFlipped: Bool = true
     var flipCompletionHandler: ((FlippableView) -> Void)?
     var color: UIColor!
     
@@ -188,13 +190,16 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func getFrontSideView() -> UIView {
+    private func getFrontSideView() -> UIView {        
         let view = UIView(frame: self.bounds)
         view.backgroundColor = .white
         
-        let shapeView = UIView(frame: CGRect(x: margin, y: margin, width: Int(self.bounds.width) - margin * 2, height: Int(self.bounds.height) - margin * 2))
+        let shapeView = UIView(frame: CGRect(x: margin, y: margin, width: Int(self.bounds.width)-margin*2, height: Int(self.bounds.height)-margin*2))
+        view.addSubview(shapeView)
+        // создание слоя с фигурой
         let shapeLayer = ShapeType(size: shapeView.frame.size, fillColor: color.cgColor)
         shapeView.layer.addSublayer(shapeLayer)
+
         
         return view
     }
