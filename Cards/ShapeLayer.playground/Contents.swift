@@ -14,8 +14,11 @@ class MyViewController : UIViewController {
 //        view.layer.addSublayer(CrossShape(size: CGSize(width: 200, height: 150), fillColor: UIColor.cyan.cgColor))
 //        view.layer.addSublayer(BackSideCircle(size: CGSize(width: 200, height: 500), fillColor: UIColor.gray.cgColor))
 //        view.layer.addSublayer(BackSideLine(size: CGSize(width: 200, height: 500), fillColor: UIColor.gray.cgColor))
-        let firstCardView = CardView<CircleShape>(frame: CGRect(x: 0, y: 0, width: 120, height: 150), color: .red)
+        let firstCardView = CardView<CircleShape>(frame: CGRect(x: 10, y: 10, width: 60, height: 92), color: .red)
         self.view.addSubview(firstCardView)
+        
+        let secondCardView = CardView<CircleShape>(frame: CGRect(x: 75, y: 10, width: 60, height: 92), color: .red)
+        self.view.addSubview(secondCardView)
     }
 }
 // Present the view controller in the Live View window
@@ -114,7 +117,7 @@ class BackSideCircle: CAShapeLayer, ShapeLayerProtocol {
         
         let path = UIBezierPath()
         
-        for _ in 1...30 {
+        for _ in 1...20 {
             
             let randomX = Int.random(in: 0...Int(size.width))
             let randomY = Int.random(in: 0...Int(size.height))
@@ -165,11 +168,12 @@ class BackSideLine: CAShapeLayer, ShapeLayerProtocol {
 }
 
 class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
-    var isFlipped: Bool = true
+    var isFlipped: Bool = false
     var flipCompletionHandler: ((FlippableView) -> Void)?
     var color: UIColor!
     
     private let margin: Int = 10
+    var cornerRadius = 10
     
     lazy var frontSideView: UIView = self.getFrontSideView()
     lazy var backSideView: UIView = self.getBackSidwView()
@@ -185,12 +189,21 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
             self.addSubview(frontSideView)
             self.addSubview(backSideView)
         }
+        setupBorders()
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func getFrontSideView() -> UIView {        
+    private func setupBorders() {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = CGFloat(cornerRadius)
+        self.layer.borderWidth = 2
+        self.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    private func getFrontSideView() -> UIView {
         let view = UIView(frame: self.bounds)
         view.backgroundColor = .white
         
