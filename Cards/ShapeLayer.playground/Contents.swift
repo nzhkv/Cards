@@ -175,6 +175,14 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
     init(frame: CGRect, color: UIColor) {
         super.init(frame: frame)
         self.color = color
+        
+        if isFlipped {
+            self.addSubview(backSideView)
+            self.addSubview(frontSideView)
+        } else {
+            self.addSubview(frontSideView)
+            self.addSubview(backSideView)
+        }
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
