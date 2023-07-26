@@ -246,6 +246,18 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
     }
     
     func flip() {}
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touchesBegan Card")
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touchesMoved Card")
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touchesEnded Card")
+    }
 }
 
 
