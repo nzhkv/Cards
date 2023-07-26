@@ -217,6 +217,9 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
         // создание слоя с фигурой
         let shapeLayer = ShapeType(size: shapeView.frame.size, fillColor: color.cgColor)
         shapeView.layer.addSublayer(shapeLayer)
+        
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = CGFloat(cornerRadius)
 
         
         return view
@@ -236,6 +239,9 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
         default:
             break
         }
+        
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = CGFloat(cornerRadius)
         return view
     }
     
@@ -252,7 +258,13 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
         }
     }
     
-    func flip() {}
+    func flip() {
+        let fromView = isFlipped ? frontSideView : backSideView
+        let toView = isFlipped ? backSideView : frontSideView
+        
+        UIView.transition(from: fromView, to: toView, duration: 0.5, options: [.transitionFlipFromRight], completion: nil)
+        isFlipped = !isFlipped
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         anchorPoints.x = touches.first!.location(in: window).x - frame.minX
@@ -262,9 +274,16 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        UIView.animate(withDuration: 0.5) {
-            self.frame.origin = self.startTouchPoint
-        }
+//        UIView.animate(withDuration: 0.5) {
+//            self.frame.origin = self.startTouchPoint
+//
+//            if self.transform.isIdentity {
+//                self.transform = CGAffineTransform(rotationAngle: .pi)
+//            } else {
+//                self.transform = .identity
+//            }
+//        }
+        flip()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
