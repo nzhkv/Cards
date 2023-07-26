@@ -14,11 +14,12 @@ class MyViewController : UIViewController {
 //        view.layer.addSublayer(CrossShape(size: CGSize(width: 200, height: 150), fillColor: UIColor.cyan.cgColor))
 //        view.layer.addSublayer(BackSideCircle(size: CGSize(width: 200, height: 500), fillColor: UIColor.gray.cgColor))
 //        view.layer.addSublayer(BackSideLine(size: CGSize(width: 200, height: 500), fillColor: UIColor.gray.cgColor))
-        let firstCardView = CardView<CircleShape>(frame: CGRect(x: 10, y: 10, width: 60, height: 92), color: .red)
+        let firstCardView = CardView<CircleShape>(frame: CGRect(x: 10, y: 10, width: 120, height: 184), color: .red)
         self.view.addSubview(firstCardView)
         
-        let secondCardView = CardView<CircleShape>(frame: CGRect(x: 75, y: 10, width: 60, height: 92), color: .red)
+        let secondCardView = CardView<CircleShape>(frame: CGRect(x: 135, y: 10, width: 120, height: 184), color: .red)
         self.view.addSubview(secondCardView)
+        secondCardView.isFlipped = true
     }
 }
 // Present the view controller in the Live View window
@@ -168,7 +169,11 @@ class BackSideLine: CAShapeLayer, ShapeLayerProtocol {
 }
 
 class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
-    var isFlipped: Bool = false
+    var isFlipped: Bool = false {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
     var flipCompletionHandler: ((FlippableView) -> Void)?
     var color: UIColor!
     
@@ -182,13 +187,6 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
         super.init(frame: frame)
         self.color = color
         
-        if isFlipped {
-            self.addSubview(backSideView)
-            self.addSubview(frontSideView)
-        } else {
-            self.addSubview(frontSideView)
-            self.addSubview(backSideView)
-        }
         setupBorders()
         
     }
@@ -232,6 +230,19 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
             break
         }
         return view
+    }
+    
+    override func draw(_ rect: CGRect) {
+        backSideView.removeFromSuperview()
+        frontSideView.removeFromSuperview()
+        
+        if isFlipped {
+            self.addSubview(backSideView)
+            self.addSubview(frontSideView)
+        } else {
+            self.addSubview(frontSideView)
+            self.addSubview(backSideView)
+        }
     }
     
     func flip() {}
