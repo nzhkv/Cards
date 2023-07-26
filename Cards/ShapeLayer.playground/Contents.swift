@@ -21,6 +21,10 @@ class MyViewController : UIViewController {
         self.view.addSubview(secondCardView)
         secondCardView.isFlipped = true
     }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("touchesBegan Controller")
+//    }
 }
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = MyViewController()
@@ -183,6 +187,9 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
     lazy var frontSideView: UIView = self.getFrontSideView()
     lazy var backSideView: UIView = self.getBackSidwView()
     
+    private var anchorPoints: CGPoint = CGPoint(x: 0, y: 0)
+    private var startTouchPoint: CGPoint!
+    
     init(frame: CGRect, color: UIColor) {
         super.init(frame: frame)
         self.color = color
@@ -248,19 +255,33 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
     func flip() {}
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesBegan Card")
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesMoved Card")
+        anchorPoints.x = touches.first!.location(in: window).x - frame.minX
+        anchorPoints.y = touches.first!.location(in: window).y - frame.minY
+        
+        startTouchPoint = frame.origin
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesEnded Card")
+        UIView.animate(withDuration: 0.5) {
+            self.frame.origin = self.startTouchPoint
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.frame.origin.x = touches.first!.location(in: window).x - anchorPoints.x
+        self.frame.origin.y = touches.first!.location(in: window).y - anchorPoints.y
     }
 }
 
-
+extension UIResponder {
+    func responderChain() -> String {
+            guard let next = next else {
+                return String(describing: Self.self)
+            }
+        
+        return String(describing: Self.self) + " -> " + next.responderChain()
+    }
+}
 
 
 
