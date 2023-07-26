@@ -13,6 +13,8 @@
 		2ECB20D92A6ACCFC00FFB6A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECB20D72A6ACCFC00FFB6A6 /* Main.storyboard */; };
 		2ECB20DB2A6ACCFD00FFB6A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2ECB20DA2A6ACCFD00FFB6A6 /* Assets.xcassets */; };
 		2ECB20DE2A6ACCFD00FFB6A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECB20DC2A6ACCFD00FFB6A6 /* LaunchScreen.storyboard */; };
+		2EE7A7492A7145A300F2106B /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE7A7482A7145A300F2106B /* Shapes.swift */; };
+		2EE7A74B2A7145B700F2106B /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE7A74A2A7145B700F2106B /* Cards.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		2ECB20E52A6ACDB300FFB6A6 /* ViewExperiments.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ViewExperiments.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2ECB20E62A6BDF5F00FFB6A6 /* BezierExperiments.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BezierExperiments.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2EE7A7462A6D22EB00F2106B /* ShapeLayer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ShapeLayer.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2EE7A7482A7145A300F2106B /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
+		2EE7A74A2A7145B700F2106B /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 		2ECB20D02A6ACCFC00FFB6A6 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
+				2EE7A7472A71458A00F2106B /* View */,
 				2ECB20D12A6ACCFC00FFB6A6 /* AppDelegate.swift */,
 				2ECB20D32A6ACCFC00FFB6A6 /* SceneDelegate.swift */,
 				2ECB20D52A6ACCFC00FFB6A6 /* ViewController.swift */,
@@ -71,6 +76,15 @@
 				2EE7A7462A6D22EB00F2106B /* ShapeLayer.playground */,
 			);
 			path = Cards;
+			sourceTree = "<group>";
+		};
+		2EE7A7472A71458A00F2106B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2EE7A7482A7145A300F2106B /* Shapes.swift */,
+				2EE7A74A2A7145B700F2106B /* Cards.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,9 +158,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EE7A74B2A7145B700F2106B /* Cards.swift in Sources */,
 				2ECB20D62A6ACCFC00FFB6A6 /* ViewController.swift in Sources */,
 				2ECB20D22A6ACCFC00FFB6A6 /* AppDelegate.swift in Sources */,
 				2ECB20D42A6ACCFC00FFB6A6 /* SceneDelegate.swift in Sources */,
+				2EE7A7492A7145A300F2106B /* Shapes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
