@@ -282,16 +282,9 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        UIView.animate(withDuration: 0.5) {
-//            self.frame.origin = self.startTouchPoint
-//
-//            if self.transform.isIdentity {
-//                self.transform = CGAffineTransform(rotationAngle: .pi)
-//            } else {
-//                self.transform = .identity
-//            }
-//        }
+       if self.frame.origin == startTouchPoint {
         flip()
+       }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
