@@ -15,7 +15,19 @@ class BoardGameController: UIViewController {
     lazy var startButtonView = getStartButton()
     lazy var boardGameView = getBoardGameView()
     
-
+    private var cardSize: CGSize {
+        CGSize(width: 80, height: 120)
+    }
+    
+    private var cardMaxXCoordinate: Int {
+        Int(boardGameView.frame.width - cardSize.width)
+        
+    }
+    
+    private var cardMaxYCoordinate: Int {
+        Int(boardGameView.frame.height - cardSize.height)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -70,6 +82,28 @@ class BoardGameController: UIViewController {
         boardView.backgroundColor = UIColor(red: 0.1, green: 0.9, blue: 0.1, alpha: 0.3)
         
         return boardView
+    }
+    
+    private func getCardsBy(modelData: [Card] -> [UIView]) {
+        var cardViews = [UIView]()
+        let cardViewFactory = CardViewFactory()
+        
+        for (index, modelCard) in modelData.enumerated() {
+            let cardOne = cardViewFactory.get(modelCard.type, withSize: cardSize, and: modelCard.color)
+            cardOne.tag = index
+            cardViews.append(cardOne)
+            
+            let cardTwo = cardViewFactory.get(modelCard.type, withSize: cardSize, and: modelCard.color)
+            cardTwo.tag = index
+            cardViews.append(cardTwo)
+        }
+        
+        for card in cardViews {
+            (card as! FlippableView).flipCompletionHandler = { flippedCard in
+                flippedCard.superview?.bringSubviewToFront(flippedCard)
+            }
+        }
+        return cardViews
     }
 
 }
