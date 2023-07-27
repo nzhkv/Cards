@@ -12,8 +12,9 @@ class BoardGameController: UIViewController {
     var cardsPairsCounts = 8
     
     lazy var game: Game = getNewGame()
-    
     lazy var startButtonView = getStartButton()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +35,6 @@ class BoardGameController: UIViewController {
     private func getStartButton() -> UIButton {
         let button = UIButton(frame: CGRect(x: 0, y:0, width: 200, height: 50))
         button.center.x = view.center.x
-        
-//        let window = UIApplication.shared.windows[0]
-//
-//        let topPadding = window.safeAreaInsets.top
         button.frame.origin.y = UIApplication.safeArea.top
         
         button.setTitle("start", for: .normal)
@@ -46,7 +43,16 @@ class BoardGameController: UIViewController {
         button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 10
         
+        button.addTarget(nil, action: #selector(startGame), for: .touchUpInside)
+//        button.addAction(UIAction(handler: { action in
+//            print("asdasdasd")
+//        }), for: .touchUpInside)
+        
         return button
+    }
+    
+    @objc func startGame(_ sender: UIButton) {
+        print("button was pressed")
     }
 
 }
