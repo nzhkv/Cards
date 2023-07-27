@@ -60,7 +60,7 @@ class BackSideLine: CAShapeLayer, ShapeLayerProtocol {
             let randomXEnd = Int.random(in: 0...Int(size.width))
             let randomYEnd = Int.random(in: 0...Int(size.height))
             
-            path.move(to: CGPoint(x: randomXStart, y: randomXEnd))
+            path.move(to: CGPoint(x: randomXStart, y: randomYStart))
             path.addLine(to: CGPoint(x: randomXEnd, y: randomYEnd))
         }
         self.path = path.cgPath
