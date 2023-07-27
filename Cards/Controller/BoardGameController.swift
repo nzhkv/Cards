@@ -13,7 +13,7 @@ class BoardGameController: UIViewController {
     
     lazy var game: Game = getNewGame()
     lazy var startButtonView = getStartButton()
-    
+    lazy var boardGameView = getBoardGameView()
     
 
     override func viewDidLoad() {
@@ -23,6 +23,7 @@ class BoardGameController: UIViewController {
     override func loadView() {
         super.loadView()
         view.addSubview(startButtonView)
+        view.addSubview(boardGameView)
     }
     
     private func getNewGame() -> Game {
@@ -53,6 +54,22 @@ class BoardGameController: UIViewController {
     
     @objc func startGame(_ sender: UIButton) {
         print("button was pressed")
+    }
+    
+    private func getBoardGameView() -> UIView {
+        let margin: CGFloat = 10
+        
+        let boardView = UIView()
+        boardView.frame.origin.x = margin
+        boardView.frame.origin.y = UIApplication.safeArea.top + startButtonView.frame.height + margin
+        
+        boardView.frame.size.width = UIScreen.main.bounds.width - margin * 2
+        boardView.frame.size.height = UIScreen.main.bounds.height - boardView.frame.origin.y - margin - UIApplication.safeArea.bottom
+        
+        boardView.layer.cornerRadius = 35
+        boardView.backgroundColor = UIColor(red: 0.1, green: 0.9, blue: 0.1, alpha: 0.3)
+        
+        return boardView
     }
 
 }
