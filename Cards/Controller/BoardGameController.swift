@@ -11,6 +11,7 @@ class BoardGameController: UIViewController {
     
     var cardsPairsCounts = 8
     var cardViews = [UIView]()
+    private var flippedCards = [UIView]()
     
     lazy var game: Game = getNewGame()
     lazy var startButtonView = getStartButton()
@@ -102,10 +103,39 @@ class BoardGameController: UIViewController {
         }
         
         for card in cardViews {
-            (card as! FlippableView).flipCompletionHandler = { flippedCard in
+            (card as! FlippableView).flipCompletionHandler = { [self] flippedCard in
                 flippedCard.superview?.bringSubviewToFront(flippedCard)
+                
+                if flippedCard.isFlipped {
+                    self.flippedCards.append(flippedCard)
+                } else {
+                    if let cardIndex = self.flippedCards.firstIndex(of: flippedCard) {
+                        self.flippedCards.remove(at: cardIndex)
+                    }
+                }
+                
+                if self.flippedCards.count == 2 {
+                    let firstCard = game.cards[self.flippedCards.first!.tag]
+                    let secondCard = game.cards[self.flippedCards.last!.tag]
+                    
+                    if game.checkCards(firstCard, secondCard) {
+                        UIView.animate(withDuration: 0.3, animations: {
+                            self.flippedCards.first!.layer.opacity = 0
+                            self.flippedCards.last!.layer.opacity = 0
+                        }, completion: {_ in
+                            self.flippedCards.first!.removeFromSuperview()
+                            self.flippedCards.last!.removeFromSuperview()
+                            self.flippedCards = []
+                        })
+                    } else {
+                        for card in self.flippedCards {
+                            (card as! FlippableView).flip()
+                        }
+                    }
+                }
             }
         }
+        
         return cardViews
     }
     
