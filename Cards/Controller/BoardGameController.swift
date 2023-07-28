@@ -10,6 +10,7 @@ import UIKit
 class BoardGameController: UIViewController {
     
     var cardsPairsCounts = 8
+    var cardViews = [UIView]()
     
     lazy var game: Game = getNewGame()
     lazy var startButtonView = getStartButton()
@@ -65,7 +66,9 @@ class BoardGameController: UIViewController {
     }
     
     @objc func startGame(_ sender: UIButton) {
-        print("button was pressed")
+        game = getNewGame()
+        let cards = getCardsBy(modelData: game.cards)
+        placeCardsOnBoard(cards)
     }
     
     private func getBoardGameView() -> UIView {
@@ -84,7 +87,7 @@ class BoardGameController: UIViewController {
         return boardView
     }
     
-    private func getCardsBy(modelData: [Card] -> [UIView]) {
+    private func getCardsBy(modelData: [Card]) -> [UIView] {
         var cardViews = [UIView]()
         let cardViewFactory = CardViewFactory()
         
@@ -104,6 +107,25 @@ class BoardGameController: UIViewController {
             }
         }
         return cardViews
+    }
+    
+    private func placeCardsOnBoard(_ cards: [UIView]) {
+        for card in cardViews {
+            card.removeFromSuperview()
+        }
+        
+        cardViews = cards
+        
+        for card in cardViews {
+            let randomXCoordinate = Int.random(in: 0...cardMaxXCoordinate)
+            let randomYCoordinate = Int.random(in: 0...cardMaxYCoordinate)
+            
+            card.frame.origin = CGPoint(x: randomXCoordinate, y: randomYCoordinate)
+
+//            print(card)
+            
+            boardGameView.addSubview(card)
+        }
     }
 
 }
